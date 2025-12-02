@@ -45,7 +45,7 @@ semver==3.0.4
     #   changelog-chug
 setuptools-scm==9.2.2
     # via hatch-vcs
-trove-classifiers==2025.11.14.15
+trove-classifiers==2025.12.1.14
     # via
     #   -r requirements-build.in
     #   hatchling
