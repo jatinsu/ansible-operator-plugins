@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-PIP_OPTS="--no-cache-dir"
+PIP_OPTS="--no-cache-dir --ignore-installed"
 # Check if we are building the image in the OSBS environment. If so, source the
 # env vars specific for enabling cachito.
 if [ -d ${REMOTE_SOURCES_DIR}/cachito-gomod-with-deps ]; then
