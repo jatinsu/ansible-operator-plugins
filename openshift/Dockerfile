@@ -9,7 +9,8 @@ RUN cd /go/src/github.com/openshift/ansible-operator-plugins \
     && export GIT_VERSION="$(make -pRrq --no-print-directory | grep '^IMAGE_VERSION' | awk -F'= ' '{print $2}')-ocp" \
     && make -e build
 
-FROM registry.ci.openshift.org/ocp/4.22:base-rhel9
+# FROM registry.ci.openshift.org/ocp/4.22:base-rhel9
+FROM quay.io/centos/centos:stream10
 
 RUN mkdir -p /etc/ansible \
     && echo "localhost ansible_connection=local" > /etc/ansible/hosts \
@@ -27,7 +28,8 @@ RUN dnf clean all && rm -rf /var/cache/dnf/* \
     && dnf update -y \
     && dnf install -y catatonit python3.12-cryptography python3.12-devel gcc \
     && pushd /usr/local/bin && ln -sf ../../bin/python3.12 python3 && popd \
-    && python3 -m ensurepip --upgrade
+    && python3 -m ensurepip --upgrade \
+    && dnf remove -y python3-six || true
 
 # Add steps for cachito
 ENV REMOTE_SOURCES=${REMOTE_SOURCES:-"./openshift/"}
